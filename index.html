@@ -14,7 +14,8 @@
 var origin = '';
 
 window.addEventListener('message', function(event){
-	if(event.origin === origin){
+	//if(event.origin === origin){
+	if(origin === ''){
 		var message = event.data;
 		
 		//get
