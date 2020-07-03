@@ -1,19 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>TipsNote : GitHub Pages Sample</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/marx/2.0.4/marx.css">
+<meta charset="utf-8">
+<title>LUC888-LogStorage</title>
 </head>
 
 <body>
-<main>
-  <h1>GitHub Pages のサンプルです</h1>
-  <a href="http://www.tam-tam.co.jp/tipsnote/"><button>TipsNote に戻る</button></a>
-</main>
 
 <script>
-console.log('GitHub Pages Sample');
+
+(function(){
+
+var origin = '';
+
+window.addEventListener('message', function(event){
+	if(event.origin === origin){
+		var message = event.data;
+		
+		//get
+		if(message === 'get'){
+			var storageData = func_data_load();
+			event.source.postMessage(storageData,event.origin);
+		}
+		//post
+		else{
+			//var messageArray = message.split(',');
+			var obj = {
+				'table01' : message;
+			};
+			var setjson = JSON.stringify(obj);
+			localStorage.setItem('c5app_bmt_log',setjson);
+		
+		}
+	}
+});
+
+})();
+
+
+function func_data_save(){
+	
+}
+
+function func_data_load(){
+	if(localStorage.getItem('c5app_bmt_log')==null){ //コンフィグ存在しないなら初期生成
+		var obj = {
+			'table01' : ['0']
+		};
+		var setjson = JSON.stringify(obj);
+		localStorage.setItem('c5app_bmt_log',setjson);
+	}
+	
+	//存在するなら
+	//return JSON.parse(localStorage.getItem('c5app_bmt_log'));//読み込み用
+	return localStorage.getItem('c5app_bmt_log');
+}
+
 </script>
+
+
+虹色に光らせる。
+
 </body>
 </html>
